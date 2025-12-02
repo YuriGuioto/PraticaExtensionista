@@ -63,9 +63,5 @@ Aplicação web distribuída para o cardápio digital do açaí do seu João. O 
 - Painel ADM consome `GET /api/orders` e atualiza status via `PATCH /api/orders/:id/status` utilizando o token JWT do login `/api/auth/login`.
 - Eventos `orders:update` via Socket.IO notificam o frontend sempre que um pedido é criado/atualizado.
 
-## Próximos Passos
 
-1. Adicionar autenticação mais robusta para o módulo ADM (JWT ou Auth simplificado).
-2. Criar CRUD completo para categorias e itens via painel ADM.
-3. Integrar storage de imagens (S3, Supabase ou Cloudinary) para fotos de produtos.
-4. Publicar Docker Compose e pipelines de deploy.
+
