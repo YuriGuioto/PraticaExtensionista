@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String?
+  highlight   String?
+  sortOrder   Int       @default(0)
+  items       MenuItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MenuItem {
+  id           String            @id @default(cuid())
+  sku          String?           @unique
+  name         String
+  description  String
+  ingredients  String[]
+  price        Decimal           @db.Decimal(8, 2)
+  imageUrl     String?
+  isAvailable  Boolean           @default(true)
+  baseSize     String?
+  tags         String[]
+  categoryId   String
+  category     Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  options      MenuItemOption[]
+  orderItems   OrderItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MenuItemOption {
+  id        String   @id @default(cuid())
+  label     String
+  values    String[]
+  itemId    String
+  menuItem  MenuItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id           String       @id @default(cuid())
+  code         String       @unique
+  customerName String
+  tableLabel   String?
+  contact      String?
+  status       OrderStatus  @default(received)
+  total        Decimal      @db.Decimal(10, 2)
+  items        OrderItem[]
+  history      OrderStatusHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderItem {
+  id         String  @id @default(cuid())
+  quantity   Int
+  notes      String?
+  orderId    String
+  menuItemId String
+
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Restrict)
+}
+
+model AdminUser {
+  id           String                @id @default(cuid())
+  name         String
+  email        String                @unique
+  passwordHash String
+  role         String                @default("admin")
+  histories    OrderStatusHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrderStatusHistory {
+  id             String      @id @default(cuid())
+  orderId        String
+  adminUserId    String?
+  previousStatus OrderStatus
+  newStatus      OrderStatus
+  note           String?
+
+  order     Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  adminUser AdminUser? @relation(fields: [adminUserId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([adminUserId])
+}
+
+enum OrderStatus {
+  received
+  in_preparation
+  ready
+  delivered
+}
+
+enum OrderItemSize {
+  pp
+  p
+  m
+  g
+  gg
+}

@@ -1,0 +1,102 @@
+import { MenuCategory, MenuItem } from '../types/menu.js';
+
+export const menuCategories: MenuCategory[] = [
+  {
+    id: 'cat-classicos',
+    slug: 'classicos',
+    name: 'Clássicos do Açaí',
+    description: 'Receitas tradicionais do açaí do seu João. Cremosos e energéticos.',
+    highlight: 'Base cremosa com guaraná orgânico',
+    sortOrder: 1,
+  },
+  {
+    id: 'cat-gourmet',
+    slug: 'gourmet',
+    name: 'Gourmet & Premium',
+    description: 'Combinações autorais com toppings exclusivos.',
+    sortOrder: 2,
+  },
+  {
+    id: 'cat-bebidas',
+    slug: 'bebidas',
+    name: 'Bebidas Energizantes',
+    description: 'Sucos, smoothies e cafés gelados para acompanhar o açaí.',
+    sortOrder: 3,
+  },
+  {
+    id: 'cat-toppings',
+    slug: 'toppings',
+    name: 'Toppings & Extras',
+    description: 'Finalize seu pedido com toppings crocantes ou cremosos.',
+    sortOrder: 4,
+  },
+];
+
+export const menuItems: MenuItem[] = [
+  {
+    id: 'item-acai-raiz',
+    categoryId: 'cat-classicos',
+    name: 'Açaí Raiz 500ml',
+    description: 'Açaí batido com banana e xarope de guaraná orgânico. Acompanha granola artesanal.',
+    ingredients: ['Açaí orgânico', 'Banana prata', 'Guaraná', 'Granola crocante'],
+    price: 26.5,
+    imageUrl: 'https://images.praticas.acai/raiz-500.png',
+    isAvailable: true,
+    tags: ['vegano', 'energia diária'],
+    baseSize: '500 ml',
+    options: [
+      {
+        label: 'Tamanho',
+        values: ['300 ml', '500 ml', '700 ml'],
+      },
+      {
+        label: 'Guarnição',
+        values: ['Banana', 'Morango', 'Kiwi'],
+      },
+    ],
+  },
+  {
+    id: 'item-sunrise',
+    categoryId: 'cat-gourmet',
+    name: 'Sunrise da Serra',
+    description: 'Açaí com mousse de maracujá, crumble de castanhas e mel de rapadura.',
+    ingredients: ['Açaí denso', 'Mousse de maracujá', 'Castanha de caju', 'Melado'],
+    price: 34.9,
+    imageUrl: 'https://images.praticas.acai/sunrise.png',
+    isAvailable: true,
+    tags: ['signature'],
+  },
+  {
+    id: 'item-cupu-twist',
+    categoryId: 'cat-gourmet',
+    name: 'Cupuaçu Twist',
+    description: 'Blend meio açaí, meio cupuaçu com creme de ninho e chips de coco queimado.',
+    ingredients: ['Açaí', 'Polpa de cupuaçu', 'Creme de ninho', 'Coco queimado'],
+    price: 32.0,
+    imageUrl: 'https://images.praticas.acai/cupuacu.png',
+    isAvailable: true,
+    tags: ['equilíbrio perfeito'],
+  },
+  {
+    id: 'item-energetico-cafe',
+    categoryId: 'cat-bebidas',
+    name: 'Cold Brew Taperebá',
+    description: 'Café gelado extraído a frio com redução de taperebá e espuma cítrica.',
+    ingredients: ['Cold brew', 'Taperebá', 'Espuma cítrica'],
+    price: 18.0,
+    imageUrl: 'https://images.praticas.acai/coldbrew.png',
+    isAvailable: false,
+    tags: ['novo'],
+  },
+  {
+    id: 'item-topping-crocante',
+    categoryId: 'cat-toppings',
+    name: 'Mix Crocante Família',
+    description: 'Granola da casa com castanha-do-pará caramelizada e nibs de cacau.',
+    ingredients: ['Granola artesanal', 'Castanha-do-pará', 'Nibs de cacau'],
+    price: 7.5,
+    imageUrl: 'https://images.praticas.acai/topping-crocante.png',
+    isAvailable: true,
+    tags: ['favorito'],
+  },
+];
